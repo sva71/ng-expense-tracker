@@ -1,0 +1,68 @@
+<div class="mt-10 flex justify-around items-center">
+  <mat-form-field>
+    <mat-label>Filter by type</mat-label>
+    <mat-select [(ngModel)]="typeFilter" (selectionChange)="typeFilterChange($event)">
+      @if (typeFilter) {
+        <mat-option [value]="null">
+          <span class="font-bold">Clear filter</span>
+        </mat-option>
+      }
+      <mat-option value="Income">Income</mat-option>
+      <mat-option value="Expense">Expense</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Filter by category</mat-label>
+    <mat-select [(ngModel)]="categoryFilter" (selectionChange)="categoryFilterChange($event)">
+      @if (categoryFilter) {
+        <mat-option [value]="null">
+          <span class="font-bold">Clear filter</span>
+        </mat-option>
+      }
+      @for (cat of CATEGORIES; track cat) {
+        <mat-option [value]="cat">{{ cat }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="table-container mt-6">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.date | date:'dd.MM.YYYY' }}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef>Type</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.type }}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.category }}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.name }}</td>
+      <td mat-footer-cell *matFooterCellDef class="font-bold">Balance:</td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+      <td mat-cell *matCellDef="let transaction">{{ transaction.amount | currency }}</td>
+      <td mat-footer-cell *matFooterCellDef class="font-bold">{{ balance | currency }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr class="h-10 text-center text-gray-500" *matNoDataRow>
+      <td colspan="6">Transactions storage is empty</td>
+    </tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+  </table>
+</div>

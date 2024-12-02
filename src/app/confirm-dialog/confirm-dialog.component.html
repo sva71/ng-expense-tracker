@@ -1,0 +1,24 @@
+<div class="py-2">
+  <div mat-dialog-title class="dialog-title w-100 pt-2">
+    <span class="float-start">Attention!</span>
+    <mat-icon [mat-dialog-close]="null" role="button" class="float-end">close</mat-icon>
+  </div>
+
+  <mat-dialog-content class="mat-typography">
+
+    <form>
+      <mat-label>{{ data.message }}</mat-label>
+    </form>
+  </mat-dialog-content>
+
+  <div class="px-6 flex justify-end">
+    <mat-dialog-actions class="px-4">
+      <button mat-raised-button [mat-dialog-close]="false">
+        Отмена
+      </button>
+      <button mat-raised-button [color]="data.submitButtonColor" (click)="dialogRef.close(true)">
+        {{ data.submitButton }}
+      </button>
+    </mat-dialog-actions>
+  </div>
+</div>

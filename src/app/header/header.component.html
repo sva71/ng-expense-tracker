@@ -1,0 +1,11 @@
+<div class="w-full flex flex-row gap-4 justify-between items-center">
+  <button mat-raised-button matTooltip="Add transaction" (click)="createTransaction()">
+    <mat-icon role="button">control_point</mat-icon>
+    <span class="hidden md:inline">Add transaction</span>
+  </button>
+  <p class="text-2xl">My Incomings and Expenses</p>
+  <button mat-raised-button matTooltip="Clear Local Storage" (click)="clearLocalStorage()">
+    <mat-icon role="button">delete_outlined</mat-icon>
+    <span class="hidden md:inline">Clear Local Storage</span>
+  </button>
+</div>
